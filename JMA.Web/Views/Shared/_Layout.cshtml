@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/x-icon" href="@Url.Content("~/Content/img/favicon.ico")" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+    <meta name="description" content="" />
+    <meta http-equiv='content-language' content='en-us' />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jqueryui")*@
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/bootstrap.js")
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+</head>
+<body id="bodytop">
+    <header class="container full-width">
+        <div class="row">
+            <div class="navbar" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="http://www.kccllc.com/" title="Kurtzman Carson Consultants" class="logo">
+                            <img src="~/Content/img/KCClogo.png" class="img-responsive" />
+                        </a>
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href=@System.Configuration.ConfigurationManager.AppSettings["HomeLink"]>Home</a></li>
+                            <li><a href=@System.Configuration.ConfigurationManager.AppSettings["CaseDocsLink"]>Case Documents</a></li>
+                            <li><a href=@System.Configuration.ConfigurationManager.AppSettings["FaqLink"]>Frequently Asked Questions</a></li>
+                            <li><a href=@System.Configuration.ConfigurationManager.AppSettings["ContactUsLink"]>Contact Us</a></li>
+                            <li id="topmenu_rightmost"><a class="btn-fileclaim" href="@Url.Action("Index", "Claimant")">File Claim</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="module Module_PageHeading BackgroundIgnore Flat">
+        <div class="container full-width">
+            <div class="row">
+                <div class="PageInfo">
+                    <h1 class="Title">@Html.Raw(System.Configuration.ConfigurationManager.AppSettings["CaseName"])</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container contentarea">
+        @RenderBody()
+    </div>
+    <footer>
+        <div class="container full-width">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3 centertext">
+                    <strong>Kurtzman Carson Consultants</strong>
+                </div>
+                <div class="col-md-2 centertext">
+                    <a href="http://www.kccllc.com/terms-of-use/" target="">Terms of Use</a>
+                </div>
+                <div class="col-md-3 centertext">
+                    <a href="http://www.kccllc.com/privacy/" target="">Privacy Statement</a>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </footer>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

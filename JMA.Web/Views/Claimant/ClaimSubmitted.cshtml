@@ -1,0 +1,17 @@
+@model JMA.Web.Models.ClaimSubmittedViewModel
+
+@{
+    ViewBag.Title = "Claim Submitted";
+}
+
+<h2>Claim Submitted</h2>
+
+<fieldset>
+    <p class="centertext"><strong>Your claim has been submitted. Your Claim ID is:  @Model.ClaimID</strong></p>
+
+    <p class="centertext">
+        Please include the above claim number in all future correspondence with the Claims Administrator.
+    </p>
+
+    <p class="centertext">A confirmation email will be sent to the email address provided shortly.</p>
+</fieldset>

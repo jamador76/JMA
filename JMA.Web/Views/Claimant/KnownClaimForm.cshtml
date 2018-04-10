@@ -1,0 +1,137 @@
+@model JMA.Mapping.ViewModels.KnownClaimFormViewModel
+@using CPU.KCC.Web.Helpers;
+
+@{
+    ViewBag.Title = "Claim Form";
+}
+
+<h2>Settlement Claim Form</h2>
+
+@using (Html.BeginForm("KnownClaimForm", "Claimant", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Claim8)
+
+    <fieldset>
+        <legend>Personal Information</legend>
+        <div class="form-group">
+            @Html.LabelFor(m => m.FirstName, new { @class = "req col-sm-4 control-label" })
+            <div class="col-sm-4">
+                @Html.TextBoxFor(m => m.FirstName, new { Maxlength = "30", @class = "form-control", @readonly = "readonly" })
+            </div>
+            @Html.ValidationMessageFor(m => m.FirstName)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.LastName, new { @class = "req col-sm-4 control-label" })
+            <div class="col-sm-4">
+                @Html.TextBoxFor(m => m.LastName, new { Maxlength = "30", @class = "form-control", @readonly = "readonly" })
+            </div>
+            @Html.ValidationMessageFor(m => m.LastName)
+        </div>
+        <div class="form-group">
+            @Html.CheckBoxFor(m => m.IsForeign, new { @class = "isForeign" })
+            @Html.LabelFor(m => m.IsForeign, "Please check if a non-U.S. address", new { @class = "control-label" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Addr1, "Primary Address", new { @class = "req col-sm-4 control-label" })
+            <div class="col-sm-4">
+                @Html.TextBoxFor(m => m.Addr1, new { Maxlength = "30", @class = "form-control", @required = "required" })
+            </div>
+            @Html.ValidationMessageFor(m => m.Addr1)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Addr2, "Primary Address continued", new { @class = "col-sm-4 control-label" })
+            <div class="col-sm-4">
+                @Html.TextBoxFor(m => m.Addr2, new { Maxlength = "30", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.City, new { @class = "req col-sm-4 control-label" })
+            <div class="col-sm-4">
+                @Html.TextBoxFor(m => m.City, new { Maxlength = "30", @class = "form-control", @required = "required" })
+            </div>
+            @Html.ValidationMessageFor(m => m.City)
+        </div>
+        <div class="domestic">
+            <div class="form-group">
+                @Html.LabelFor(m => m.State, new { @class = "req col-sm-4 control-label" })
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(m => m.State, new ListOfStates(), new { @class = "form-control", @required = "required" })
+                </div>
+                @Html.ValidationMessageFor(m => m.State)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Zip, new { @class = "req col-sm-4 control-label" })
+                <div class="col-sm-4">
+                    @Html.TextBoxFor(m => m.Zip, new { @class = "zip5 form-control", @required = "required" })
+                </div>
+                @Html.ValidationMessageFor(m => m.Zip)
+            </div>
+        </div>
+        <div class="foreign" style="display: none;">
+            <div class="form-group">
+                @Html.LabelFor(m => m.FProv, new { @class = "req col-sm-4 control-label" })
+                <div class="col-sm-4">
+                    @Html.TextBoxFor(m => m.FProv, new { Maxlength = "30", @class = "form-control", @required = "required" })
+                </div>
+                @Html.ValidationMessageFor(m => m.FProv)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Fzip, new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-4">
+                    @Html.TextBoxFor(m => m.Fzip, new { Maxlength = "14", @class = "form-control" })
+                </div>
+                @Html.ValidationMessageFor(m => m.Fzip)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.FCountry, new { @class = "req col-sm-4 control-label" })
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(m => m.FCountry, new ListOfCountries(), new { @class = "form-control", required = "required" })
+                </div>
+                @Html.ValidationMessageFor(model => model.FCountry)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "req col-sm-4 control-label" })
+            <div class="col-sm-4">
+                @Html.TextBoxFor(m => m.Email, new { Maxlength = "255", @class = "form-control", @required = "required" })
+            </div>
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PhoneHome, new { @class = "req col-sm-4 control-label" })
+            <div class="col-sm-4">
+                @Html.TextBoxFor(m => m.PhoneHome, new { @class = "form-control phone", @required = "required" })
+            </div>
+            @Html.ValidationMessageFor(m => m.PhoneHome)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PhoneWork, new { @class = "col-sm-4 control-label" })
+            <div class="col-sm-4">
+                @Html.TextBoxFor(m => m.PhoneWork, new { @class = "form-control phone" })
+            </div>
+            @Html.ValidationMessageFor(m => m.PhoneWork)
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Certification</legend>
+        <label class="req">
+            @Html.CheckBoxFor(m => m.IAgree, new { id = "chkIAgree", required = "required" })
+            I certify that the information I have provided herein is true and correct to the best of my personal knowledge and belief.
+        </label>
+
+        <div class="form-group centertext">
+            <button type="submit" id="SubmitClaim" disabled="disabled" style="width: 16em; padding: .75em; margin: 1em auto; display: inline-block;" class="btn btn-primary">
+                Agree and Submit
+            </button>
+        </div>
+
+        <p class="req">Required</p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/jquery.maskedinput.min.js")
+    @Scripts.Render("~/Scripts/claim.js")
+}
